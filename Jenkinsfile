@@ -8,9 +8,14 @@ pipeline{
           }
         }
 
-        stage('List files'){
+        stage('Setup Python'){
           steps{
-            bat 'dir'
+            bat """
+              python --version
+              python -m venv .venv
+              .venv\\Scripts\\python -m pip install --upgrade pip
+              .venv\\Scripts\\python -m pip install -r requirements.txt
+            """
           }
         }
     }
