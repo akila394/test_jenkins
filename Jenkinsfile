@@ -2,10 +2,15 @@ pipeline{
     agent any
 
     stages{
-        stage('Hello') {
+        stage('Checkout') {
           steps{
-            echo 'Hello, Jenkins'
-            echo 'Hello Ruwani'
+            checkout scm
+          }
+        }
+
+        stage('List files'){
+          steps{
+            bat 'dir'
           }
         }
     }
