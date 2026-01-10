@@ -9,7 +9,7 @@ def test_add():
 
 @pytest.mark.regression
 def test_substraction():
-    assert substraction(5, 2) == 8
+    assert substraction(5, 2) == 3
 
 @pytest.mark.regression
 def test_divide_by_zero_raises():
