@@ -18,5 +18,13 @@ pipeline{
             """
           }
         }
+
+        stage('Run tests'){
+          steps{
+            bat """
+              .venv\\Scripts\\python -m pytest
+            """
+          }
+        }
     }
 }
