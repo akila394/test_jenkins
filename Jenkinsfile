@@ -5,6 +5,10 @@ pipeline{
       REPORT_DIR = "reports"
     }
 
+    parameters {
+      choice(name:'Suite', choices: ["smoke", "regression", "all"], description: 'which suits to run')
+    }
+
     stages{
         stage('Checkout') {
           steps{
@@ -25,6 +29,11 @@ pipeline{
           steps{
             bat """
               if not exist %%REPORT_DIR%% mkdir %%REPORT_DIR%%
+
+              set TEST_MARKER=
+              if "%SUITE%"=="smoke" set TEST_MARKER=-m smoke
+              if "%SUITE%"=="regression" set TEST_MARKER=-m regression
+
               .venv\\Scripts\\python -m pytest ^
               --junitxml=%REPORT_DIR%\\junit.xml ^
               --html=%REPORT_DIR%\\report.html ^
