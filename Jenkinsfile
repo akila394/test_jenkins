@@ -1,6 +1,10 @@
 pipeline{
     agent any
 
+    environment{
+      REPORT_DIR = "reports"
+    }
+
     stages{
         stage('Checkout') {
           steps{
@@ -9,12 +13,10 @@ pipeline{
         }
 
         stage('Setup Python'){
-          steps{
+          steps {
             bat """
-              python --version
               python -m venv .venv
-              .venv\\Scripts\\python -m pip install --upgrade pip
-              .venv\\Scripts\\python -m pip install -r requirements.txt
+              .venv\\Scripts\\python -m install  -r  requirements.txt
             """
           }
         }
@@ -22,9 +24,13 @@ pipeline{
         stage('Run tests'){
           steps{
             bat """
-              .venv\\Scripts\\python -m pytest
+              if not exist %%REPORT_DIR%% mkdir %%REPORT_DIR%%
+              .venv\\Scripts\\Python ^
+              --junit.xml=%REPORT_DIR%\\junit.xml ^
+              --html=%REPORT_DIR%//report.html ^
+              --self-contained.html
             """
           }
         }
-    }
-}
+      }
+
