@@ -34,7 +34,7 @@ pipeline{
               if "%SUITE%"=="smoke" set TEST_MARKER=-m smoke
               if "%SUITE%"=="regression" set TEST_MARKER=-m regression
 
-              .venv\\Scripts\\python -m pytest %TEST_MARKER^
+              .venv\\Scripts\\python -m pytest %TEST_MARKER% ^
               --junitxml=%REPORT_DIR%\\junit.xml ^
               --html=%REPORT_DIR%\\report.html ^
               --self-contained-html
