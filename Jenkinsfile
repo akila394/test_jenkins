@@ -33,5 +33,13 @@ pipeline{
           }
         }
     }
+
+
+    post {
+      always {
+        junit testResults: "reports/junit.xml",allowEmptyResults: true
+        archiveArtifacts artifacts: 'reports/**', fingerprint: true
+      }
+    }
  }
 
