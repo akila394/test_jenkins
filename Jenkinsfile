@@ -26,9 +26,9 @@ pipeline{
             bat """
               if not exist %%REPORT_DIR%% mkdir %%REPORT_DIR%%
               .venv\\Scripts\\Python ^
-              --junit.xml=%REPORT_DIR%\\junit.xml ^
-              --html=%REPORT_DIR%//report.html ^
-              --self-contained.html
+              --junitxml=%REPORT_DIR%\\junit.xml ^
+              --html=%REPORT_DIR%\\report.html ^
+              --self-contained-html
             """
           }
         }
