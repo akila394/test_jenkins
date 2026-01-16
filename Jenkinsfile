@@ -2,6 +2,7 @@ pipeline{
     agent any
 
     environment{
+      VENV_PY = ".venv\\Scripts\\python"
       REPORT_DIR = "reports"
     }
 
@@ -21,7 +22,7 @@ pipeline{
           steps {
             bat """
               python -m venv .venv
-              .venv\\Scripts\\python -m pip install -r requirements.txt
+              %VENV_PY% -m pip install -r requirements.txt
             """
           }
         }
@@ -38,7 +39,7 @@ pipeline{
               REM expose ENV to Python tests
               set ENV=%ENV%
 
-              .venv\\Scripts\\python -m pytest %TEST_MARKER% ^
+             %VENV_PY% -m pytest %TEST_MARKER% ^
               --junitxml=%REPORT_DIR%\\junit.xml ^
               --html=%REPORT_DIR%\\report.html ^
               --self-contained-html
