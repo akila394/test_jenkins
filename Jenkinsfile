@@ -29,8 +29,8 @@ pipeline{
 
         stage('Run tests'){
           steps{
-           withCredentials([string(credentialId: 'calc-token', variable: 'TOKEN')])
-            bat """
+            withCredentials([string(credentialId: 'calc-token', variable: 'TOKEN')]){
+                bat """
               if not exist %%REPORT_DIR%% mkdir %%REPORT_DIR%%
 
               set TEST_MARKER=
@@ -45,6 +45,8 @@ pipeline{
               --html=%REPORT_DIR%\\report.html ^
               --self-contained-html
             """
+            }
+
           }
         }
     }
