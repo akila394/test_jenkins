@@ -7,6 +7,7 @@ pipeline{
 
     parameters {
       choice(name:'Suite', choices: ["smoke", "regression", "all"], description: 'which suits to run')
+      choice(name:'Environment', choices: ["dev", "QA", "UAT", "prd"], description: 'which environment test to run')
     }
 
     stages{
