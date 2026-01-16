@@ -7,7 +7,7 @@ pipeline{
 
     parameters {
       choice(name:'Suite', choices: ["smoke", "regression", "all"], description: 'which suits to run')
-      choice(name:'Environment', choices: ["dev", "QA", "UAT", "prd"], description: 'which environment test to run')
+      choice(name:'ENV', choices: ["dev", "QA", "UAT", "prd"], description: 'which environment test to run')
     }
 
     stages{
@@ -34,6 +34,9 @@ pipeline{
               set TEST_MARKER=
               if "%SUITE%"=="smoke" set TEST_MARKER=-m smoke
               if "%SUITE%"=="regression" set TEST_MARKER=-m regression
+
+              REM expose ENV to Python tests
+              set ENV=%ENV%
 
               .venv\\Scripts\\python -m pytest %TEST_MARKER% ^
               --junitxml=%REPORT_DIR%\\junit.xml ^
