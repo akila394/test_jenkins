@@ -29,7 +29,7 @@ pipeline{
 
         stage('Run tests'){
           steps{
-            withCredentials([string(credentialsId: 'ALLOW_T', variable: 'TOKEN')]){
+            withCredentials([string(credentialsId: 'ALLOW_TOKEN', variable: 'TOKEN')]){
                 bat """
               if not exist %%REPORT_DIR%% mkdir %%REPORT_DIR%%
 
